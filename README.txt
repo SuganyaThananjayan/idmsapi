@@ -10,21 +10,24 @@ Before you start, make sure you have the following:
 - **MySQL** installed and running
 - **Postman** for API testing
 
-### Environment Variables (in `application.properties`)
+### Environment Variables (in "application.properties")
 
 1. **IDMS API Credentials:**
-    - **Base URL**: `https://idms.dealersocket.com`
-    - **Username**: `testerAPI@drivesoft.tech`
-    - **Password**: `HeoVIaCST3st@@Main`
-    - **LayoutID**: `2006084`
-    - **AccountStatus**: `a`
-    - **InstitutionID**: `107007`
-    - **PageNumber**: `1`
+    - **Base URL**: "https://idms.dealersocket.com"
+    - **Username**: "testerAPI@drivesoft.tech"
+    - **Password**: "HeoVIaCST3st@@Main"
+    - **LayoutID**: "2006084"
+    - **AccountStatus**: "a"
+    - **InstitutionID**: "107007"
+    - **PageNumber**: "1"
 
 2. **MySQL Configuration:**
-    - **Database URL**: `jdbc:mysql://localhost:3306/idms_db`
-    - **Database User**: `root`
-    - **Database Password**: `rootpassword`
+    - **Database URL**: "jdbc:mysql://localhost:3306/idms_db"
+    - **Database User**: "root"
+    - **Database Password**: "rootpassword"
+    - **Hibernate to handle schema evolution automatically hibernate.ddl-auto**:"update"
+    - **See the actual SQL being generated jpa.show-sql**:"true"
+    - **SQL to be nicely formatted hibernate.format_sql**:"update"
 
 ### Dependencies
 
@@ -37,37 +40,29 @@ Before you start, make sure you have the following:
 
 1. **Clone the Repository:**
 
-    ```bash
-    git clone https://github.com/yourusername/idms-integration.git
-    cd idms-integration
-    ```
+    git clone https://github.com/SuganyaThananjayan/idmsapi.git
 
 2. **Install Dependencies:**
 
-    - Make sure that you have **Maven** or **Gradle** installed.
-    - Run the following to install dependencies:
-
-    ```bash
-    mvn install
-    ```
+    - Make sure that you have **Maven** installed.
+        mvn install
 
 3. **Set Up Database:**
 
     - Create a new database in MySQL:
 
-    ```sql
     CREATE DATABASE idms_db;
-    ```
 
-    - Run the **SQL script** below to create the necessary tables.
 
-4. **Configure `application.properties`:**
+4. **Configure "application.properties":**
 
-    - Open `src/main/resources/application.properties` and set your database and API configuration according to your environment.
+    - Open "src/main/resources/application.properties" and set your database and API configuration according to your environment.
 
     Example:
 
-    ```properties
+    properties
+    -----------
+
     # API Configuration
     api.base-url=https://idms.dealersocket.com
     api.username=testerAPI@drivesoft.tech
@@ -83,15 +78,13 @@ Before you start, make sure you have the following:
     spring.datasource.password=rootpassword
     spring.jpa.hibernate.ddl-auto=update
     spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
-    ```
+   
 
 5. **Run the Application:**
 
     Run the Spring Boot application:
 
-    ```bash
     mvn spring-boot:run
-    ```
 
 6. **Test the Application:**
 
@@ -99,24 +92,52 @@ Before you start, make sure you have the following:
 
 ### API Endpoints
 
-1. **Authentication Endpoint (`POST /auth/login`)**:
+1. **Authentication Endpoint (GET  /login)**:
     - Use the username and password (admin/DriveSoft@@!) to obtain a JWT token.
-    - Response: `{ "token": "<JWT_TOKEN>" }`
+    - Response: { "token": "<JWT_TOKEN>" }
 
-2. **Vehicle Data Endpoint (`GET /vehicle-data`)**:
-    - This endpoint returns the list of vehicle data stored in MySQL.
-    - Header: `Authorization: Bearer <JWT_TOKEN>`
+2. **Fetch Data and Store Endpoint (GET /fetchDataAndStore)**:
+    - Use the JWT_TOKEN to get data from idmsapi and store local database.
+    - Response: {"code": "200","message": "Account data fetched and saved from IDMS API successfully","success": true, "data": ""}
+
+2. **Vehicle Data Endpoint (GET /getAllVehicleData)**:
+    - Use the JWT_TOKEN to returns the list of vehicle data stored local database.
+    - Response:  {"code": "200","message": "Account data fetched successfully","success": true,"data": [
+        {
+            "AcctID": "915944",
+            "ContractSalesPrice": 19686.0,
+            "AcctType": "C",
+            "SalesGroupPerson1ID": "104745",
+            "ContractDate": "12/23/2024 12:00:00 AM",
+            "CollateralStockNumber": "127573",
+            "CollateralYearModel": "2018",
+            "CollateralMake": "Chevrolet",
+            "CollateralModel": "Suburban",
+            "Borrower1FirstName": "Wykiza",
+            "Borrower1LastName": "Brock"
+        },
+        {
+            "AcctID": "915961",
+            "ContractSalesPrice": 19191.0,
+            "AcctType": "O",
+            "SalesGroupPerson1ID": "104737",
+            "ContractDate": "12/23/2024 12:00:00 AM",
+            "CollateralStockNumber": "R034349",
+            "CollateralYearModel": "2018",
+            "CollateralMake": "Tesla",
+            "CollateralModel": "Model 3",
+            "Borrower1FirstName": "SCOTT",
+            "Borrower1LastName": "HENKELMAN"
+        }]}
 
 ---
 
 ### **SQL Script to Create MySQL Tables**
 
-```sql
+sql
 CREATE DATABASE idms_db;
 
-USE idms_db;
-
-CREATE TABLE account (
+CREATE TABLE IF NOT EXISTS accountData (
     acctId BIGINT PRIMARY KEY,
     contractSalesPrice DOUBLE,
     acctType VARCHAR(255),
