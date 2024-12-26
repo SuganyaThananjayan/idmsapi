@@ -98,11 +98,37 @@ Before you start, make sure you have the following:
 
 2. **Fetch Data and Store Endpoint (GET /fetchDataAndStore)**:
     - Use the JWT_TOKEN to get data from idmsapi and store local database.
-    - Response: 
+    - Response: {"code": "200","message": "Account data fetched and saved from IDMS API successfully","success": true, "data": ""}
 
 2. **Vehicle Data Endpoint (GET /getAllVehicleData)**:
     - Use the JWT_TOKEN to returns the list of vehicle data stored local database.
-    - Response: 
+    - Response:  {"code": "200","message": "Account data fetched successfully","success": true,"data": [
+        {
+            "AcctID": "915944",
+            "ContractSalesPrice": 19686.0,
+            "AcctType": "C",
+            "SalesGroupPerson1ID": "104745",
+            "ContractDate": "12/23/2024 12:00:00 AM",
+            "CollateralStockNumber": "127573",
+            "CollateralYearModel": "2018",
+            "CollateralMake": "Chevrolet",
+            "CollateralModel": "Suburban",
+            "Borrower1FirstName": "Wykiza",
+            "Borrower1LastName": "Brock"
+        },
+        {
+            "AcctID": "915961",
+            "ContractSalesPrice": 19191.0,
+            "AcctType": "O",
+            "SalesGroupPerson1ID": "104737",
+            "ContractDate": "12/23/2024 12:00:00 AM",
+            "CollateralStockNumber": "R034349",
+            "CollateralYearModel": "2018",
+            "CollateralMake": "Tesla",
+            "CollateralModel": "Model 3",
+            "Borrower1FirstName": "SCOTT",
+            "Borrower1LastName": "HENKELMAN"
+        }]}
 
 ---
 
