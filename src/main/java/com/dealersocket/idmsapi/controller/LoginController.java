@@ -1,5 +1,6 @@
 package com.dealersocket.idmsapi.controller;
 import com.dealersocket.idmsapi.jwt.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,17 +17,13 @@ public class  LoginController {
         return "admin".equals(username) && "DriveSoft@@!".equals(password);
     }
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String username,@RequestParam(required = false) String password) {
+    public ResponseEntity<String> login(@RequestParam(required = false) String username, @RequestParam(required = false) String password) {
 
-        System.out.println("username"+username);
-        System.out.println("password"+password);
-        if (username.isEmpty() || password.isEmpty()) {
-            return "Username or password is missing!";
-        }
         if (authenticate(username, password)) {
             // In a real scenario, authentication logic would happen here
-            return jwtUtil.createToken(username);
+            String token=jwtUtil.createToken(username);
+            return  ResponseEntity.ok(token);
         }
-        return "Invalid credentials!";
+        return ResponseEntity.status(401).body("Invalid credentials");
     }
 }
