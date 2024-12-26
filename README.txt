@@ -24,7 +24,7 @@ Before you start, make sure you have the following:
 2. **MySQL Configuration:**
     - **Database URL**: "jdbc:mysql://localhost:3306/idms_db"
     - **Database User**: "root"
-    - **Database Password**: "rootpassword"
+    - **Database Password**: "mysql123"
     - **Hibernate to handle schema evolution automatically hibernate.ddl-auto**:"update"
     - **See the actual SQL being generated jpa.show-sql**:"true"
     - **SQL to be nicely formatted hibernate.format_sql**:"update"
