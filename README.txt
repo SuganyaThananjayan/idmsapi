@@ -135,9 +135,9 @@ Before you start, make sure you have the following:
 ### **SQL Script to Create MySQL Tables**
 
 sql
-CREATE DATABASE idms_db;
+CREATE DATABASE idms;
 
-CREATE TABLE IF NOT EXISTS accountData (
+CREATE TABLE IF NOT EXISTS account_data (
     acctId BIGINT PRIMARY KEY,
     contractSalesPrice DOUBLE,
     acctType VARCHAR(255),
