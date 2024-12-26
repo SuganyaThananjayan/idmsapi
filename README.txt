@@ -24,7 +24,7 @@ Before you start, make sure you have the following:
 2. **MySQL Configuration:**
     - **Database URL**: "jdbc:mysql://localhost:3306/idms_db"
     - **Database User**: "root"
-    - **Database Password**: "rootpassword"
+    - **Database Password**: "mysql123"
     - **Hibernate to handle schema evolution automatically hibernate.ddl-auto**:"update"
     - **See the actual SQL being generated jpa.show-sql**:"true"
     - **SQL to be nicely formatted hibernate.format_sql**:"update"
@@ -135,9 +135,9 @@ Before you start, make sure you have the following:
 ### **SQL Script to Create MySQL Tables**
 
 sql
-CREATE DATABASE idms_db;
+CREATE DATABASE idms;
 
-CREATE TABLE IF NOT EXISTS accountData (
+CREATE TABLE IF NOT EXISTS account_data (
     acctId BIGINT PRIMARY KEY,
     contractSalesPrice DOUBLE,
     acctType VARCHAR(255),
